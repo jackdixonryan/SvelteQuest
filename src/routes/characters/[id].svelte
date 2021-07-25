@@ -22,20 +22,33 @@
 <script lang="ts">
   import type { Character } from "../../types";
   export let character: Character;
+  let level = character.level;
 
-  async function levelUp() {
-    const { level } = character;
-    const newLevel = level + 1;
+  async function levelUp(): Promise<void> {
 
     const response = await fetch(`/characters/${character.id}.json`, {
       method: 'PATCH', 
       headers: { 'Content-Type': "application/json" },
-      body: JSON.stringify({ level: newLevel })      
+      body: JSON.stringify({ level })      
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data); 
+      // so that our page also reacts to the change.
+      character.level++;
+    }
+  }
+
+  async function deleteCharacter(): Promise<void> {
+    const sure = confirm("Do you really want to?");
+    if (sure) {
+      const response = await fetch(`/characters/${character.id}.json`, {
+        method: 'DELETE'
+      });
+      
+      // redirect from the page if successful because this page will break.
+      if (response.ok) {
+        location.replace('/characters');
+      }
     }
   }
 </script>
@@ -46,3 +59,4 @@
 <p>Level { character.level }</p>
 <p>Created on { character.created }</p>
 <button on:click={levelUp}>Level Up!</button>
+<button on:click={deleteCharacter}>Delete this Character</button>

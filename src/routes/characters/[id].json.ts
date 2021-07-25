@@ -43,3 +43,22 @@ export async function patch(request) {
     character
   }
 }
+
+export async function del({ params }) {
+  const { id } = params;
+  const character = characters.find((c) => c.id === id);
+  if (!character) {
+    return {
+      status: 404
+    }
+  }
+  
+  const characterIndex = characters.findIndex((c) => c.id === id);
+  characters.splice(characterIndex, 1);
+  return {
+    status: 200,
+    body: {
+      character
+    }
+  }
+}
