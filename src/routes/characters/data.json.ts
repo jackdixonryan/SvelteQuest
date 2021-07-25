@@ -1,20 +1,4 @@
-const characters = [
-  {
-    name: "almeira herrera",
-    level: 12,
-    created: new Date()
-  },
-  {
-    name: "tripper trapper",
-    level: 3,
-    created: new Date("2021-07-03")
-  },
-  {
-    name: "barry abalone",
-    level: 23,
-    created: new Date("2020-04-03")
-  }
-];
+import { characters } from "./characters";
 
 export async function get({ params }) {
   return {
@@ -46,6 +30,9 @@ export async function post(request) {
     }
   }
 
+  // for our shitty ID system.
+  character.id = (characters.length + 1).toString();
+
   characters.push(character);
   return {
     status: 201,
@@ -53,12 +40,4 @@ export async function post(request) {
       characters
     }
   }
-}
-
-export async function update(request) {
-
-}
-
-export async function del({ params }) {
-
 }

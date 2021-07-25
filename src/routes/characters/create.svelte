@@ -28,5 +28,5 @@
 
 <div id="character-creation-form">
   <input type="text" name="character-name" id="character-name" bind:value={name} />
-  <button>Create New Character</button>
+  <button on:click={createCharacter}>Create New Character</button>
 </div>
