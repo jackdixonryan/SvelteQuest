@@ -22,20 +22,14 @@
 <script lang="ts">
   import type { Character } from "../../types";
   export let character: Character;
-  let level = character.level;
 
   async function levelUp(): Promise<void> {
-
+    character.level++;
     const response = await fetch(`/characters/${character.id}.json`, {
       method: 'PATCH', 
       headers: { 'Content-Type': "application/json" },
-      body: JSON.stringify({ level })      
+      body: JSON.stringify({ level: character.level })      
     });
-
-    if (response.ok) {
-      // so that our page also reacts to the change.
-      character.level++;
-    }
   }
 
   async function deleteCharacter(): Promise<void> {

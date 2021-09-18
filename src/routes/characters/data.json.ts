@@ -20,8 +20,8 @@ export async function post(request) {
     }
   }
 
-  const { name, level, created } = character;
-  if (!name || !level || !created) {
+  const { name } = character;
+  if (!name) {
     return {
       status: 400,
       body: {
@@ -30,7 +30,9 @@ export async function post(request) {
     }
   }
 
-  // for our shitty ID system.
+  // for our basic ID system.
+  character.level = 1;
+  character.created = new Date();
   character.id = (characters.length + 1).toString();
 
   characters.push(character);
