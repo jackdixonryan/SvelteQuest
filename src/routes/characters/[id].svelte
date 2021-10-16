@@ -20,7 +20,9 @@
 </script>
 
 <script lang="ts">
+  import char from "$lib/supabase/db";
   import type { Character } from "../../types";
+  import { v4 } from "uuid";
   export let character: Character;
 
   async function levelUp(): Promise<void> {
@@ -45,6 +47,12 @@
       }
     }
   }
+
+  async function persist(): Promise<void> { 
+    const c = new char(character.name, character.level, v4()); 
+    await c.persist(); 
+  }
+
 </script>
 
 <style></style>
@@ -54,3 +62,4 @@
 <p>Created on { character.created }</p>
 <button on:click={levelUp}>Level Up!</button>
 <button on:click={deleteCharacter}>Delete this Character</button>
+<button on:click={persist}>Persist this Character!</button>
