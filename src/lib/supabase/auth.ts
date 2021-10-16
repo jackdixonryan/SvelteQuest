@@ -6,14 +6,18 @@ const authentication = (function module() {
 
   const { auth } = db;
 
+  function getUser(): User {
+    return auth.user() || null;
+  }
+
   return {
-    async signIn(email: string, password: string): Promise<User|Error> {
+    async signIn(email: string, password: string): Promise<User> {
       const { user, error } = await auth.signIn({
         email, password
       });
 
       if (error) {
-        return error;
+        throw new Error(error.message);
       } 
 
       return user;
@@ -23,18 +27,19 @@ const authentication = (function module() {
       await auth.signOut();
     },
     // registers a new user to the supabase authentication database.
-    async register(email: string, password: string): Promise<User|Error> {
+    async signUp(email: string, password: string): Promise<User> {
       // password parameters go here
       const { user, error } = await auth.signUp({
         email, password
       });
 
       if (error) {
-        return error;
+        throw new Error(error.message);
       }
 
       return user;  
-    }
+    },
+    user: getUser()
   }
 })();
 
