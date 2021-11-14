@@ -1,4 +1,5 @@
 import type { User } from "@supabase/gotrue-js";
+import type { Provider } from "@supabase/supabase-js";
 import db from "./config";
 
 const authentication = (function module() {
@@ -38,6 +39,17 @@ const authentication = (function module() {
       }
 
       return user;  
+    },
+    async SSO(provider: Provider): Promise<User> {
+      const { user, error } = await auth.signIn({
+        provider,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      return user;
     },
     user: getUser()
   }

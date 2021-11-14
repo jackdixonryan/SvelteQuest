@@ -5,8 +5,9 @@ import authentication from "$lib/supabase/auth";
 
 export const authStore = writable<{
   isLoggedIn: boolean;
-  user?: User
+  user?: User;
 }> ({
-  isLoggedIn: false,
+
+  isLoggedIn: authentication.user?.aud === "authenticated" || false,
   user: authentication.user || null
 });
