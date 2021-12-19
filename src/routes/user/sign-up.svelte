@@ -18,6 +18,39 @@
     }
   }
 
+  async function SSOGithub() {
+    try {
+      const user: User = await authentication.SSO("github");
+      if (user) {
+        goto("/");
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  async function SSOTwitch() {
+    try {
+      const user: User = await authentication.SSO("twitch");
+      if (user) {
+        goto("/");
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  async function SSOGoogle() {
+    try {
+      const user: User = await authentication.SSO("google");
+      if (user) {
+        goto("/");
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
 </script>
 
 <style>
