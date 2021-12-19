@@ -1,9 +1,5 @@
-import db from "./config";
+import db from "./index";
 import { v4 } from "uuid";
-
-const name = "name";
-const level  = 1; 
-const id = v4();
 
 function Character(id) {
   this.id = id;

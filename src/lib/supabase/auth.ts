@@ -1,5 +1,5 @@
 import type { User } from "@supabase/gotrue-js";
-import db from "./config";
+import db from "./index";
 
 const authentication = (function module() {
   "use strict";
@@ -34,6 +34,7 @@ const authentication = (function module() {
       });
 
       if (error) {
+        console.log(error);
         throw new Error(error.message);
       }
 

@@ -2,37 +2,10 @@
   import { goto } from "$app/navigation";
   import authentication from "$lib/supabase/auth";
   import type { User } from "@supabase/gotrue-js";
-  import {authStore} from "../../stores";
 
   let password: string;
-  let strength;
-
-  $: {
-    console.log(password);
-    strength = evaluatePasswordStrength();
-    console.log(strength);
-  }
-
   let email: string;
-
-  // returns "STRONG" "MEDIUM" "WEAK" based on user password strength.
-  function evaluatePasswordStrength(): string {
-    const strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})');
-    const mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))');
-    if (strongPassword.test(password)) {
-      return "strong";
-    } else if (mediumPassword.test(password)) {
-      return "medium";
-    } else {
-      return "weak"
-    }
-  }
-
-  authStore.subscribe((user) => {
-    if (user.isLoggedIn) {
-      goto("/characters");
-    }
-  });
+  let message;
 
   async function signUp() {
     try {
@@ -41,11 +14,49 @@
         goto("/");
       }
     } catch(error) {
-      alert(error);
+      message = error;
     }
   }
 
 </script>
+
+<style>
+
+  #sign-up-form {
+    width: 25rem;
+    border: 1px black solid;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    margin-top: 12rem;
+    font-family: 'Baskerville', Courier, monospace;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input {
+    width: 80%;
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 1rem;
+    background: none;
+    border: 1px black solid;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .error-message {
+    color: red;
+  }
+</style>
 
 <div id="sign-up-form">
   <h1>Sign Up</h1>
@@ -53,5 +64,8 @@
   <input type="text" name="email" id="email" bind:value={ email } />
   <label for="password">Password</label>
   <input type="password" name="password" id="password" bind:value={ password }/>
-  <button on:click={ signUp } disabled={ strength === "weak" }>Sign Up</button>
+  <button on:click={ signUp }>Sign Up</button>
+  {#if message } 
+    <p class="error-message"> { message } </p>
+  { /if }
 </div>
