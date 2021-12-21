@@ -1,53 +1,29 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import authentication from "$lib/supabase/auth";
-  import type { User } from "@supabase/gotrue-js";
+  import type { Session, User } from "@supabase/gotrue-js";
+  import supabase from "$lib/supabase";
+
+  const { auth } = supabase;
+
+  type NewUser = {
+    user: User;
+    session: Session;
+    error: Error;
+    data: User | Session;
+  }
 
   let password: string;
   let email: string;
-  let message;
+  let message: string;
 
   async function signUp() {
     try {
-      const user: User = await authentication.signUp(email, password);
+      const user: NewUser = await auth.signUp({ email, password });
       if (user) {
         goto("/");
       }
     } catch(error) {
       message = error;
-    }
-  }
-
-  async function SSOGithub() {
-    try {
-      const user: User = await authentication.SSO("github");
-      if (user) {
-        goto("/");
-      }
-    } catch (error) {
-      alert(error);
-    }
-  }
-
-  async function SSOTwitch() {
-    try {
-      const user: User = await authentication.SSO("twitch");
-      if (user) {
-        goto("/");
-      }
-    } catch (error) {
-      alert(error);
-    }
-  }
-
-  async function SSOGoogle() {
-    try {
-      const user: User = await authentication.SSO("google");
-      if (user) {
-        goto("/");
-      }
-    } catch (error) {
-      alert(error);
     }
   }
 

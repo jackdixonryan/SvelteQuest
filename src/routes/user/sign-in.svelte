@@ -1,15 +1,16 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import authentication from "$lib/supabase/auth";
-  import type { User } from "@supabase/gotrue-js";
+  import type { UserCredentials } from "@supabase/gotrue-js";
+  import supabase from "$lib/supabase";
 
+  const { auth } = supabase;
   let password: string;
   let email: string;
-  let message;
+  let message: string;
 
   async function signIn() {
     try {
-      const user: User = await authentication.signIn(email, password);
+      const user: UserCredentials = await auth.signIn({ email, password });
       if (user) {
         goto("/");
       }
