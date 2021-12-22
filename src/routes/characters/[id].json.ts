@@ -39,7 +39,7 @@ export async function patch(request) {
 
   character.level = level;
   return {
-    status: 201,
+    status: 200,
     character
   }
 }
