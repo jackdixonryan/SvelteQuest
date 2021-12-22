@@ -2,3 +2,9 @@
 node_modules
 /.svelte-kit
 /package
+.env
+package-lock.json
+.eslintrc.cjs
+.npmrc
+.prettierignore
+.prettierrc

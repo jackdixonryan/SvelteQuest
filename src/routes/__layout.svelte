@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import NavigationBar from "../components/NavigationBar.svelte";
   import { userStore } from "../stores";
   import supabase from "$lib/supabase";
@@ -15,11 +15,14 @@
     color: white;
     width: 100%;
     height: 100vh;
+    font-family: "Montserrat", sans-serif;
   }
 
   #content {
     position: absolute;
     left: 6rem;
+    padding: 1rem;
+    width: 80%;
   }
 </style>
 
