@@ -2,11 +2,16 @@
   import { goto } from "$app/navigation";
   import type { UserCredentials } from "@supabase/gotrue-js";
   import supabase from "$lib/supabase";
+  import { userStore } from "../../stores";
 
   const { auth } = supabase;
   let password: string;
   let email: string;
   let message: string;
+
+  if ($userStore) {
+    goto("/");
+  }
 
   async function signIn() {
     try {

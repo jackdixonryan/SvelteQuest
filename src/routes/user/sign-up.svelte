@@ -2,6 +2,10 @@
   import { goto } from "$app/navigation";
   import type { Session, User } from "@supabase/gotrue-js";
   import supabase from "$lib/supabase";
+  import { userStore } from "../../stores";
+  if ($userStore) {
+    goto("/");
+  }
 
   const { auth } = supabase;
 
