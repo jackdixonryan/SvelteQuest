@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { user } from "../stores";
+  import { userStore } from "../stores";
   import supabase from "$lib/supabase";
 
-  user.set(supabase.auth.user());
+  userStore.set(supabase.auth.user());
   supabase.auth.onAuthStateChange((_, session) => {
-    user.set(session.user);
+    userStore.set(session.user);
   });
 
 </script>
 
-{#if !$user}
+{#if !$userStore}
   <h1>Welcome to SvelteQuest</h1>
   <h3>Start an Account</h3>
   <a href="/user/sign-up"><button>Here</button></a>
