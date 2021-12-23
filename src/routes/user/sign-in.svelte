@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import supabase from "$lib/supabase";
-  import { user } from "$lib/stores/user";
+  import user from "$lib/stores/user";
 
   const { auth } = supabase;
 
@@ -9,7 +9,7 @@
   let email: string;
   let message: string;
 
-  if ($user) {
+  if ($user.authenticated) {
     goto("/");
   }
 
@@ -24,7 +24,6 @@
       if (error) {
         message = error.message;
       } else if (user) {
-        console.log(user);
         goto("/");
       }
     } catch(error) {

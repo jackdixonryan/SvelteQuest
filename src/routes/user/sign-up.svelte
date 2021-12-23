@@ -2,9 +2,9 @@
   import { goto } from "$app/navigation";
   import type { Session, User } from "@supabase/gotrue-js";
   import supabase from "$lib/supabase";
-  import { user } from "$lib/stores/user";
+  import user from "$lib/stores/user";
 
-  if ($user) {
+  if ($user.authenticated) {
     goto("/");
   }
 

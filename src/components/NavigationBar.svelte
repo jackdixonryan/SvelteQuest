@@ -1,6 +1,6 @@
 
 <script lang="ts"> 
-  import { user } from "$lib/stores/user";
+  import user from "$lib/stores/user";
   import supabase from "$lib/supabase";
   import { goto } from "$app/navigation";
   const { auth } = supabase;
@@ -90,7 +90,7 @@
         <p class="caption">Account</p>
       </div>
     </a>
-    { #if $user }
+    { #if $user.authenticated }
     <div class="navbar-icon" on:click={signOut}>
       <i class="fas fa-sign-out-alt"></i>
       <p class="caption">Sign Out</p>

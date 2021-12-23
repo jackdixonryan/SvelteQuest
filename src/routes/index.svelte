@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { user } from "$lib/stores/user";
+  import user from "$lib/stores/user";
   // we need to fetch the nitty gritty of the user's state. 
   // on the homepage, I want to know three things after auth:
 
   // Does the user have a character created yet?
   // Does the user have a campaign they belong to? 
+
+  console.log($user);
 
 </script>
 
@@ -61,7 +63,7 @@
   <h1>SvelteQuest</h1>
   <!-- might need to make these sub-components... -->
   <div id="cards">
-    {#if $user}
+    {#if $user.authenticated}
     <div class="card" id="current-campaign"></div>
     <div class="card" id="current-session"></div>
     <div class="card" id="characters"></div>
