@@ -1,21 +1,18 @@
 <script lang="ts">
   import NavigationBar from "../components/NavigationBar.svelte";
-  import { userStore } from "../stores";
-  import supabase from "$lib/supabase";
-
-  userStore.set(supabase.auth.user());
-  supabase.auth.onAuthStateChange((_, session) => {
-    userStore.set(session.user);
-  });
 </script>
 
 <style>
   #main-layout { 
     background-color: #222629;
     color: white;
-    width: 100%;
-    height: 100vh;
     font-family: "Montserrat", sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
   }
 
   #content {

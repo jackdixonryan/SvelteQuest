@@ -1,22 +1,30 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import type { UserCredentials } from "@supabase/gotrue-js";
   import supabase from "$lib/supabase";
-  import { userStore } from "../../stores";
+  import { user } from "$lib/stores";
 
   const { auth } = supabase;
+
   let password: string;
   let email: string;
   let message: string;
 
-  if ($userStore) {
+  if ($user) {
     goto("/");
   }
 
+  // so that if the user hits the "enter" key they get redirected.
+	function handleKeydown(event) {
+		console.log(event);
+	}
+
   async function signIn() {
     try {
-      const user: UserCredentials = await auth.signIn({ email, password });
-      if (user) {
+      const { user, error } = await auth.signIn({ email, password });
+      if (error) {
+        message = error.message;
+      } else if (user) {
+        console.log(user);
         goto("/");
       }
     } catch(error) {
@@ -26,46 +34,10 @@
 
 </script>
 
-<style>
-
-  #sign-in-form {
-    width: 25rem;
-    border: 1px black solid;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 0 auto;
-    margin-top: 12rem;
-    font-family: 'Baskerville', Courier, monospace;
-  }
-
-  label {
-    font-size: 1rem;
-  }
-
-  input {
-    width: 80%;
-    display: block;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  button {
-    font-size: 1rem;
-    padding: 1rem;
-    background: none;
-    border: 1px black solid;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .error-message {
-    color: red;
-  }
-</style>
+<svelte:window on:keydown={handleKeydown} />
 
 <div id="sign-in-form">
-  <h1>Sign In</h1>
+  <h1>Sign In to SQ</h1>
   <label for="email">Email</label>
   <input type="text" name="email" id="email" bind:value={ email } />
   <label for="password">Password</label>
@@ -75,3 +47,52 @@
     <p class="error-message"> { message } </p>
   { /if }
 </div>
+
+<style>
+
+  #sign-in-form {
+    background-color: #474b4f;
+    width: 25rem;
+    margin: 0 auto;
+    margin-top: 10rem;
+    font-family: 'Montserrat', Courier, sans-serif;
+    text-align: center;
+    padding: 3rem;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  button {
+    background-color: #61892F;
+    color: white;
+    font-size: 1rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    outline: none;
+    cursor: pointer;
+    box-shadow: none;
+    text-transform: uppercase;
+  }
+
+  .error-message {
+    color: red;
+  }
+</style>

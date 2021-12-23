@@ -1,5 +1,6 @@
 
 <script lang="ts"> 
+  import { user } from "$lib/stores";
   import supabase from "$lib/supabase";
   import { goto } from "$app/navigation";
   const { auth } = supabase;
@@ -14,11 +15,12 @@
 <style>
 
   #navbar-top {
+    background-color: #474b4f;
     width: 6rem;
     /* padding: 1rem; */
     border-right: 2px black solid;
     float: left;
-    position: absolute;
+    position: fixed;
     top: 0px;
     bottom: 0px;
   }
@@ -88,9 +90,18 @@
         <p class="caption">Account</p>
       </div>
     </a>
+    { #if $user }
     <div class="navbar-icon" on:click={signOut}>
       <i class="fas fa-sign-out-alt"></i>
-      <p class="caption">Logout</p>
+      <p class="caption">Sign Out</p>
     </div>
+    { :else } 
+    <a href="/user/sign-in">
+      <div class="navbar-icon">
+        <i class="fas fa-sign-in-alt"></i>      
+        <p class="caption">Sign In</p>
+      </div>
+    </a>
+    { /if }
   </div>
 </div>
