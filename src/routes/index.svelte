@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { user } from "$lib/stores";
+  import { user } from "$lib/stores/user";
   // we need to fetch the nitty gritty of the user's state. 
   // on the homepage, I want to know three things after auth:
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import supabase from "$lib/supabase";
-  import { user } from "$lib/stores";
+  import { user } from "$lib/stores/user";
 
   const { auth } = supabase;
 
