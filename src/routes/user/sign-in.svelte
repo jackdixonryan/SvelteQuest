@@ -1,17 +1,29 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import type { UserCredentials } from "@supabase/gotrue-js";
   import supabase from "$lib/supabase";
+  import user from "$lib/stores/user";
 
   const { auth } = supabase;
+
   let password: string;
   let email: string;
   let message: string;
 
+  if ($user.authenticated) {
+    goto("/");
+  }
+
+  // so that if the user hits the "enter" key they get redirected.
+	function handleKeydown(event) {
+		console.log(event);
+	}
+
   async function signIn() {
     try {
-      const user: UserCredentials = await auth.signIn({ email, password });
-      if (user) {
+      const { user, error } = await auth.signIn({ email, password });
+      if (error) {
+        message = error.message;
+      } else if (user) {
         goto("/");
       }
     } catch(error) {
@@ -21,52 +33,16 @@
 
 </script>
 
-<style>
+<svelte:window on:keydown={handleKeydown} />
 
-  #sign-in-form {
-    width: 25rem;
-    border: 1px black solid;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 0 auto;
-    margin-top: 12rem;
-    font-family: 'Baskerville', Courier, monospace;
-  }
-
-  label {
-    font-size: 1rem;
-  }
-
-  input {
-    width: 80%;
-    display: block;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  button {
-    font-size: 1rem;
-    padding: 1rem;
-    background: none;
-    border: 1px black solid;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .error-message {
-    color: red;
-  }
-</style>
-
-<div id="sign-in-form">
-  <h1>Sign In</h1>
+<article>
+  <h1>Sign In to SQ</h1>
   <label for="email">Email</label>
-  <input type="text" name="email" id="email" bind:value={ email } />
+  <input type="text" name="email" bind:value={ email } />
   <label for="password">Password</label>
-  <input type="password" name="password" id="password" bind:value={ password }/>
+  <input type="password" name="password" bind:value={ password }/>
   <button on:click={ signIn }>Sign In</button>
-  {#if message } 
-    <p class="error-message"> { message } </p>
-  { /if }
-</div>
+  <footer>
+    Don't have an account? <a href="/user/sign-up">Sign Up</a>
+  </footer>
+</article>
