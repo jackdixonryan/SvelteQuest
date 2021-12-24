@@ -10,20 +10,13 @@
 
   const { auth } = supabase;
 
-  type NewUser = {
-    user: User;
-    session: Session;
-    error: Error;
-    data: User | Session;
-  }
-
   let password: string;
   let email: string;
   let message: string;
 
   async function signUp() {
     try {
-      const { user, error }: NewUser = await auth.signUp({ email, password });
+      const { user, error } = await auth.signUp({ email, password });
       if (error) {
         message = error.message;
       } else if (user) {

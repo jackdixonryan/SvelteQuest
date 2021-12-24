@@ -1,32 +1,42 @@
 <script lang="ts">
-  const speciesList = [
-    {
-      name: "human",
-      description: "A species of average height and build, humans are as versatile as they are varied. Adaptable and quick-learning, humans have spread to every corner of the globe."
-    },
-    {
-      name: "dwarf",
-    }
-  ];
+  import CharacterCreatorIntroduction from "../../components/CharacterCreator/CharacterCreatorIntroduction.svelte";
+
+  function handleStart() {
+    console.log("Looks like we started!");
+  }
 </script>
 
 <style>
-
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    left: 0;
+    right: 0;
+    border-top: 1px gray solid;
+  }
 </style>
 
 <div>
-  <div id="top-card">
-    <div id="name">
-      <label for="character-name">Character Name</label>
-      <input type="text" name="character-name" id="character-name" />
-    </div>
-    <div id="species-selection">
-      { #each speciesList as species }
-        <div class="species">
-          <p class="card-title">{ species.name }</p>
-          <p class="card-text">{ species.description }</p>
-        </div>
-      { /each }
-    </div>
-  </div>
+  <CharacterCreatorIntroduction on:start={handleStart}></CharacterCreatorIntroduction>
+  <nav class="bottom-nav">
+    <ul>
+      <li><strong>Character Creator</strong></li>
+    </ul>
+    <ul>
+      <li>
+        <button class="outline">Bio</button>
+      </li>
+      <li>
+        <button class="outline">Species</button>
+      </li>
+      <li>
+        <button class="outline">Skills</button>
+      </li>
+      <li>
+        <button class="outline">Inventory</button>
+      </li>
+    </ul>
+  </nav>
 </div>
