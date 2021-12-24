@@ -13,35 +13,59 @@
 </script>
 
 <style>
+  nav {
+    text-transform: uppercase;
+  }
+
+  button {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
 </style>
 
 <nav>
   <ul>
-    <li><strong>SvelteQuest</strong></li>
+    <li>
+      <a href="/"><strong>SvelteQuest</strong></a>
+    </li>
   </ul>
   <ul>
     <li>
-      <a href="/characters">characters</a>
+      <a href="/characters">
+        <i class="fas fa-users"></i>
+      </a>
     </li>
     <li>
-      <a href="/combat">combat</a>
+      <a href="/combat">
+        <i class="fas fa-fist-raised"></i>
+      </a>
     </li>
     <li>
-      <a href="/spells">spells</a>
+      <a href="/spells">
+        <i class="fas fa-magic"></i>
+      </a>
     </li>
     <li>
-      <a href="/skills">skills</a>
+      <a href="/skills">
+        <i class="fas fa-book-open"></i>
+      </a>
     </li>
     <li>
-      <a href="/user">account</a>
+      <a href="/user">
+        <i class="fas fa-user"></i>
+      </a>
     </li>
     { #if $user.authenticated }
     <li>
-      <button on:click={signOut}>Sign Out</button>
+      <button on:click={signOut} class="outline">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
     </li>
     { :else } 
     <li>
-      <a href="/user/sign-in">sign in</a>
+      <a href="/user/sign-in">
+        <i class="fas fa-sign-in-alt"></i>      
+      </a>
     </li>
     { /if } 
   </ul>
