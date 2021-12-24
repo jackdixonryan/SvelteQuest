@@ -1,5 +1,5 @@
 {
-  "name": "ttrpg-application",
+  "name": "svelte-quest",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
