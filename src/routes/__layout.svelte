@@ -4,8 +4,6 @@
 
 <style>
   #main-layout { 
-    background-color: #222629;
-    color: white;
     font-family: "Montserrat", sans-serif;
     position: fixed;
     top: 0;

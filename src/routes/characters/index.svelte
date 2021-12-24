@@ -4,29 +4,7 @@
 <!-- mislead you. HTML is the language of the web. -->
 
 <script lang="ts">
-  import { onMount } from "svelte";
-  import type { Character } from "../../types";
-  // here, we've got our JavaScript. It's held in the traditional script tag from HTMl. This should all be quite familiar. From here, we're going to make all of our calls and operations.
-  
-  // here, I'm going to set all of the reactive variables that we 
-  // will be using the help this page function.
-  let characters: Character[] = [];
-
-  // let's lay our our functions for remote operation.
-  async function get(): Promise<void> {
-    const response = await fetch("/characters/data.json");
-    const data = await response.json();
-    characters = data.characters;
-  }
-
-  // here's our first lifecycle hook! The onMount function schedules a callback to run as soon as the component has been mounted on the DOM.
-  onMount(async () => {
-    const response = await get();
-  });
-  // don't do this bit...
-  // (async function start() {
-  //   await get();
-  // })();
+  import user from "$lib/stores/user";
 </script>
 
 <style>
@@ -42,11 +20,11 @@
 <h1>Character List</h1>
 <!-- Now we can run an each loop to display the data. -->
 <ul>
-  {#each characters as character}
+  {#each $user.characters as character}
     <div class="character-tile">
       <h3>{character.name}</h3>
       <p><strong>Level:</strong> {character.level}</p>
-      <p><strong>Created On:</strong> {character.created}</p>
+      <p><strong>Created On:</strong> {character.created_at}</p>
     </div>
   {/each}
 </ul>
