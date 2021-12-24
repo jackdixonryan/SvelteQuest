@@ -13,95 +13,60 @@
 </script>
 
 <style>
-
-  #navbar-top {
-    background-color: #474b4f;
-    width: 6rem;
-    /* padding: 1rem; */
-    border-right: 2px black solid;
-    float: left;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
+  nav {
+    text-transform: uppercase;
   }
 
-  .navbar-icon {
-    color: white;
-    padding: 1.5rem;
-    cursor: pointer;
-    text-align: center;
+  button {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
-
-  a {
-    text-decoration: none;
-  }
-
-/*     color: #61892F;
- */
-
-  .navbar-icon:hover { 
-    color: #86C232;
-    background-color: #474b4f;
-    -moz-box-shadow:    inset 0 0 10px #000000;
-    -webkit-box-shadow: inset 0 0 10px #000000;
-    box-shadow:         inset 0 0 10px #000000;
-  }
-
-  i {
-    font-size: 2rem;
-  }
-
-  .caption {
-    font-size: 0.6rem;
-    margin-top: 0.5rem;
-  }
-
 </style>
 
-<div id="navbar-top">
-  <div class="icons">
-    <a href="/characters">
-      <div class="navbar-icon">
+<nav>
+  <ul>
+    <li>
+      <a href="/"><strong>SvelteQuest</strong></a>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <a href="/characters">
         <i class="fas fa-users"></i>
-        <p class="caption">Characters</p>
-      </div>
-    </a>
-    <a href="/combat">
-      <div class="navbar-icon">
+      </a>
+    </li>
+    <li>
+      <a href="/combat">
         <i class="fas fa-fist-raised"></i>
-        <p class="caption">Combat</p>
-      </div>
-    </a>
-    <a href="/spells">
-      <div class="navbar-icon">
+      </a>
+    </li>
+    <li>
+      <a href="/spells">
         <i class="fas fa-magic"></i>
-        <p class="caption">Spells</p>
-      </div>
-    </a>
-    <a href="/skills">
-      <div class="navbar-icon">
+      </a>
+    </li>
+    <li>
+      <a href="/skills">
         <i class="fas fa-book-open"></i>
-        <p class="caption">Skill Trees</p>
-      </div>
-    </a>
-    <a href="/user">
-      <div class="navbar-icon">
+      </a>
+    </li>
+    <li>
+      <a href="/user">
         <i class="fas fa-user"></i>
-        <p class="caption">Account</p>
-      </div>
-    </a>
+      </a>
+    </li>
     { #if $user.authenticated }
-    <div class="navbar-icon" on:click={signOut}>
-      <i class="fas fa-sign-out-alt"></i>
-      <p class="caption">Sign Out</p>
-    </div>
+    <li>
+      <button on:click={signOut} class="outline">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </li>
     { :else } 
-    <a href="/user/sign-in">
-      <div class="navbar-icon">
+    <li>
+      <a href="/user/sign-in">
         <i class="fas fa-sign-in-alt"></i>      
-        <p class="caption">Sign In</p>
-      </div>
-    </a>
-    { /if }
-  </div>
-</div>
+      </a>
+    </li>
+    { /if } 
+  </ul>
+</nav>

@@ -7,7 +7,7 @@ const { auth } = supabase;
 
 async function getCharacters(userId: string): Promise<any[]> {
   const { data: characters, error } = await supabase.from('characters')
-	  .select('name, id')
+	  .select('name, id, class, level, created_at')
 	  .eq('user', userId);
 
   if (error) {
