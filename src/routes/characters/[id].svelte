@@ -29,10 +29,27 @@
   <hgroup>
     <h1>{ character.name }</h1>
     <h2>Level { character.level } { character.class }</h2>
-
-    <article>
-      <h3>Hitpoints</h3>
-      <h2>{ character.currentHp } / { character.maxHp }</h2>
-    </article>
   </hgroup>
+
+  <hgroup>
+    <h3>Hitpoints</h3>
+    <h2>{ character.currentHp } / { character.maxHp }</h2>
+  </hgroup>
+  
+  <nav>
+    <ul>
+      <li role="button">
+        <button>Bio</button>
+      </li>
+      <li>
+        <button>Inventory</button>
+      </li>
+      <li>
+        <button>Actions</button>
+      </li>
+      <li>
+        <button>Spells</button>
+      </li>
+    </ul>
+  </nav>
 </article>

@@ -7,24 +7,24 @@
   import user from "$lib/stores/user";
 </script>
 
-<style>
-  .character-tile {
-    width: 10rem;
-    height: 10rem;
-    border: 1px black solid;
-    padding: 1rem;
-    margin: 1rem;
-  }
-</style>
-
-<h1>Character List</h1>
+<h1>My Characters</h1>
 <!-- Now we can run an each loop to display the data. -->
 <ul>
   {#each $user.characters as character}
-    <div class="character-tile">
-      <h3>{character.name}</h3>
-      <p><strong>Level:</strong> {character.level}</p>
-      <p><strong>Created On:</strong> {character.created_at}</p>
-    </div>
+    <article>
+      <hgroup>
+        <h4>{ character.name }</h4>
+        <h5>Level {character.level} { character.class }</h5>
+      </hgroup>
+      <footer>
+        <a href={`/characters/${character.id}`} role="button">View</a>
+      </footer>
+    </article>
   {/each}
+  <article>
+    <h3>Create a New Character</h3>
+    <footer>
+      <a href="/characters/create" role="button">Enter Character Creator</a>
+    </footer>
+  </article>
 </ul>
